@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 // database
 const { connect } = require("./src/database");
@@ -13,6 +14,14 @@ const PORT = 3005;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookie_parser());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    methods: ["HEAD", "GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/task", taskRouter);
